@@ -17,7 +17,7 @@ def read_item(item_id:int, db:Session = Depends(database.get_db)):
 
 @app.post("/items/", response_model=schemas.Item )
 def create_item(item: schemas.ItemCreate, db:Session = Depends(database.get_db)):
-    new_item = database.Item(name= item.name, age=item.age)
+    new_item = database.Item(item_name= item.item_name, brand_name= item.brand_name, price = item.price)
     db.add(new_item)
     db.commit()
     db.refresh(new_item)
@@ -28,8 +28,9 @@ def update_item(item_id:int, item: schemas.ItemUpdate, db:Session = Depends(data
     old_item = read_item(item_id, db)
     if old_item == None:
         raise HTTPException(status_code=404, detail="Item not found")
-    old_item.name = item.name
-    old_item.age = item.age
+    old_item.item_name = item.item_name
+    old_item.brand_name = item.brand_name
+    old_item.price = item.price
     
     db.commit()
     db.refresh(old_item)

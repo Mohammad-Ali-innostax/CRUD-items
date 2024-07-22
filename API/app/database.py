@@ -12,10 +12,9 @@ class Item(Base):
     __tablename__ = "items"
     
     id = Column(Integer, primary_key=True, index=True)
-    name = Column(String, index=True)
-    age = Column(Integer, index=True)
+    item_name = Column(String, index=True)
+    brand_name = Column(String, index=True)
     price = Column(Integer, index=True)
-    brand = Column(Integer, index=True)
     
 Base.metadata.create_all(bind = engine)
 
