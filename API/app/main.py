@@ -1,4 +1,5 @@
-from fastapi import FastAPI, Depends, HTTPException
+from fastapi import FastAPI, Depends, HTTPException, Request
+from fastapi.responses import JSONResponse
 from sqlalchemy.orm import Session
 from . import database, schemas
 from typing import List
@@ -50,3 +51,10 @@ def delete_user(item_id:int, db:Session = Depends(database.get_db)):
     db.delete(db_item)
     db.commit()
     return [db_item]
+
+@app.exception_handler(HTTPException) #formatting the error response
+async def http_exception_handler(request: Request, exc: HTTPException):
+    return JSONResponse(
+        status_code= exc.status_code,
+        content= [{"detail": exc.detail}]
+        ) 
