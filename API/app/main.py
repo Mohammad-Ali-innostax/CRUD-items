@@ -1,10 +1,20 @@
 from fastapi import FastAPI, Depends, HTTPException, Request
 from fastapi.responses import JSONResponse
+from fastapi.middleware.cors import CORSMiddleware
 from sqlalchemy.orm import Session
 from . import database, schemas
 from typing import List
 
 app = FastAPI()
+
+#adding cors middleware
+app.add_middleware(
+    CORSMiddleware,
+    allow_origins=["*"],
+    allow_credentials=True,
+    allow_methods=["*"],
+    allow_headers=["*"],
+)
 
 @app.get("/items/", response_model=List[schemas.Item])
 def read_items(db:Session = Depends(database.get_db)):
@@ -31,8 +41,6 @@ def create_item(items: List[schemas.ItemCreate], db:Session = Depends(database.g
 @app.put("/items/{item_id}", response_model=List[schemas.Item])
 def update_item(item_id:int, item: List[schemas.ItemUpdate], db:Session = Depends(database.get_db)):
     old_item = read_item(item_id, db)[0]  #getting the first item
-    # print(old_item)
-    # print(item)
     if old_item == None:
         raise HTTPException(status_code=404, detail="Item not found")
     old_item.item_name = item[0].item_name 
