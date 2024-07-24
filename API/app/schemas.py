@@ -1,8 +1,9 @@
 from pydantic import BaseModel
 
 class ItemBase(BaseModel):
-    name:str
-    age:int
+    item_name:str
+    brand_name:str
+    price:int
 
 class ItemCreate(ItemBase):
     pass
