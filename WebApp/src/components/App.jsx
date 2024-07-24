@@ -8,6 +8,8 @@ import axios from "axios";
 function App() {
 
   const [database, setDatabase] = useState([]);
+  const [deleteList, setDeleteList] = useState([]);
+
   useEffect(() => {
       axios.get('http://127.0.0.1:8000/items/').then((response) => {
         setDatabase(response.data);
@@ -18,9 +20,9 @@ function App() {
       <div className="bottom">
         <Create setDatabase={setDatabase}/> 
         <Update setDatabase={setDatabase}/>
-        <Delete setDatabase={setDatabase}/>
+        <Delete setDatabase={setDatabase} deleteList={deleteList} setDeleteList={setDeleteList}/>
       </div>
-      <Read database={database}/>
+      <Read database={database} deleteList={deleteList} setDeleteList={setDeleteList}/>
     </div>
   );
 }

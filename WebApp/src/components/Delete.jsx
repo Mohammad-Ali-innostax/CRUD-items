@@ -3,17 +3,13 @@ import axios from 'axios';
 
 function Delete(props){
     const [id, setId] = useState("");
-
+    console.log(props.deleteList);
     const handleSubmit = (event) => {
         event.preventDefault();
-        axios.delete(`http://127.0.0.1:8000/items/${id}`, {})
+        for ( var a = 0; a<props.deleteList.length;a++){
+            axios.delete(`http://127.0.0.1:8000/items/${props.deleteList[a]}`, {})
           .then(function (response) {
             setId("");
-            // alert("Data entry deleted\n{\nItem_name: "+ 
-            //     response.data[0].item_name+"\nBrand_name: "+
-            //     response.data[0].brand_name+"\nPrice: "+
-            //     response.data[0].price+"\nID: "+
-            //     response.data[0].id+ "\n}"); 
             console.log("success");
             axios.get('http://127.0.0.1:8000/items/').then((response) => {
                 props.setDatabase(response.data);
@@ -28,11 +24,13 @@ function Delete(props){
             }
             console.log(error);
           });
+        }
+        props.setDeleteList([]);
       }    
     return (<div>
         <form onSubmit={handleSubmit}>
-            <label>DELETE</label>
-                <input type='number' value={id} placeholder='Enter ID of item to be Deleted' onChange={(e) => setId(e.target.value)} />
+            <label>Mark Checkboxes to select the Items to be Deleted</label>
+                {/* <input type='number' value={id} placeholder='Enter ID of item to be Deleted' onChange={(e) => setId(e.target.value)} /> */}
             <button type='submit'>Delete</button>
         </form>
     </div>)
