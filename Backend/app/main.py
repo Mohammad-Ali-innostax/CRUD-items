@@ -30,7 +30,6 @@ def read_user(userData: List[schemas.UserCreate], db:Session = Depends(database.
 
 @app.post("/register/")
 def create_user(userData: List[schemas.UserCreate], db:Session = Depends(database.get_db)):
-    print(userData[0].username)
     new_user = database.User(username= userData[0].username, password= userData[0].password)
     db.add(new_user)
     db.commit()

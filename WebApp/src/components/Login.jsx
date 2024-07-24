@@ -33,15 +33,21 @@ function Login(props){
         });
     }
 
+    function changeToRegister(){
+        props.setChangeToRegister(true);
+    }
+
     return(
     <div className="login-body">
         <form onSubmit={handleSubmit}>
-            <input type="text" value={username} placeholder="Enter Username" onChange={(e) => setUsername(e.target.value)} />
-            <input type="password" value={password} placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)} />
-           
+            <input type="text" value={username} placeholder="Enter Username" onChange={(e) => setUsername(e.target.value)} required/>
+            <input type="password" value={password} placeholder="Enter Password" onChange={(e) => setPassword(e.target.value)} required/>
+
+            <div className="wrong-login" style={{display: displayNone}}>Incorrect Username or Password. Try again.</div>
             <button type="submit">Login</button>
-        <div className="wrong-login" style={{display: displayNone}}>Incorrect Username or Password. Try again.</div>
+            <button className="extra-button" onClick={changeToRegister}>Registeration Window</button>
         </form>
+        
     </div>
 );
 }
