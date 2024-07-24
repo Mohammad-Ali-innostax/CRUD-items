@@ -1,15 +1,14 @@
-import React, {  useState } from 'react';
+import React from 'react';
 import axios from 'axios';
 
 function Delete(props){
-    const [id, setId] = useState("");
-    console.log(props.deleteList);
+    // const [id, setId] = useState("");
     const handleSubmit = (event) => {
         event.preventDefault();
         for ( var a = 0; a<props.deleteList.length;a++){
             axios.delete(`http://127.0.0.1:8000/items/${props.deleteList[a]}`, {})
           .then(function (response) {
-            setId("");
+            // setId("");
             console.log("success");
             axios.get('http://127.0.0.1:8000/items/').then((response) => {
                 props.setDatabase(response.data);

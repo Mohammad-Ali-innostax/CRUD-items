@@ -6,6 +6,7 @@ function Read(props) {
     useEffect(()=>{
       props.setDeleteList(props.deleteList); //sending data to deletelist
       // console.log(props.deleteList);
+      // eslint-disable-next-line
     },[props.deleteList])
 
     function handleCheckboxChange(id){

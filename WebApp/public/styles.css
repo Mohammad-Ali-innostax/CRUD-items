@@ -67,12 +67,12 @@ form{
     display: flex;
     flex-direction: column;
     font-family: Arial, sans-serif;
-    
 }
 form label{
   padding-left: 12px;
+  font-size: 16px;
 }
-input[type=text], input[type=number], select {
+input[type=text], input[type=number],input[type=password], select {
     width: 300px;
     padding: 12px 20px;
     margin: 8px 5px;
@@ -97,9 +97,6 @@ input[type=text], input[type=number], select {
     background-color: #45a049;
   }
   
-form label{
-    font-size: 16px;
-}
 
 .bottom{
    display: grid;
@@ -111,4 +108,18 @@ form label{
   flex-direction: row;
   column-gap: 100px;
   margin: 50px;
+}
+
+.login-body{
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  margin-top: 100px;
+}
+
+.wrong-login{
+  font-size: 10px;
+  color: red;
+  text-align: center;
 }
