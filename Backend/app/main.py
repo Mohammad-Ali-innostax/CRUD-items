@@ -16,9 +16,9 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-@app.get("/", response_model=List[schemas.User])
-def read_users(db:Session = Depends(database.get_db)):
-    return db.query(database.User)
+# @app.get("/", response_model=List[schemas.User])
+# def read_users(db:Session = Depends(database.get_db)):
+#     return db.query(database.User)
 
 @app.post("/login/")
 def read_user(userData: List[schemas.UserCreate], db:Session = Depends(database.get_db)):
