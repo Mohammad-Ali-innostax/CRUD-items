@@ -12,7 +12,7 @@ class User(Base):
     __tablename__ = "AuthenticationTable"
     
     id = Column(Integer, primary_key=True, index=True)
-    Username = Column(String, index=True)
+    username = Column(String, index=True)
     password = Column(String, index=True)
     
 Base.metadata.create_all(bind = engine)

@@ -1,12 +1,11 @@
 import React, { useState } from "react";
+import axios from "axios";
 
 function Login(props){
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
     const [displayNone, setDisplayNone] = useState("None");
 
-    const user = "Qwerty";
-    const pass = "1234";
 
     const handleSubmit = (event) => {
         event.preventDefault();
@@ -15,14 +14,23 @@ function Login(props){
     }
 
     function validateLogin(username,password){
-        if(username === user && password === pass){
-            props.setIsAuthenticated(true);
-        }else{
-            props.setIsAuthenticated(false);
-            setDisplayNone("block");
-            setUsername("");
-            setPassword("");
-        }
+        var payload = [{
+            "username":username,
+            "password": password
+        }];
+        axios.post(`http://127.0.0.1:9000/login/`, payload)
+        .then(function (response){
+            if(response.data === true){
+                props.setIsAuthenticated(true);
+            }else{
+                props.setIsAuthenticated(false);
+                setDisplayNone("block");
+                setUsername("");
+                setPassword("");
+            }
+        }).catch( function (error){
+            console.log(error);
+        });
     }
 
     return(
